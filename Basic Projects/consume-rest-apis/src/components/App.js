@@ -17,6 +17,14 @@ export default function App() {
 
   return (
     <div className="App">
+      <div className="form-card">
+        <h1>Add a new Post</h1>
+        <form>
+          <input type="text" placeholder="Your title" />
+          <textarea placeholder="Your post"></textarea>
+          <button>Save</button>
+        </form>
+      </div>
       {posts.map((post) => {
         return (
           <div className="card" key={post.id}>
