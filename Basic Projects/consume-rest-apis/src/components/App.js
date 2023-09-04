@@ -23,8 +23,8 @@ export default function App() {
     await fetch('https://jsonplaceholder.typicode.com/posts', {
       method: 'POST',
       body: JSON.stringify({
-        title: title,
-        body: body,
+        title,
+        body,
         userId: Math.random().toString(36).slice(2),
       }),
       headers: {
@@ -48,6 +48,23 @@ export default function App() {
     addPosts(title, body);
   }
 
+  //HANDLE DELETE POST
+  async function handleDelete(id) {
+    await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+      method: 'DELETE',
+    }).then((response) => {
+      if (response.status === 200) {
+        setPosts(
+          posts.filter((post) => {
+            return post.id !== id;
+          })
+        );
+      } else {
+        return;
+      }
+    });
+  }
+
   return (
     // CARD FORM
     <div className="App">
@@ -66,7 +83,7 @@ export default function App() {
           <div className="card" key={post.id}>
             <h2>{post.title}</h2>
             <p>{post.body}</p>
-            <button>Delete</button>
+            <button onClick={() => handleDelete(post.id)}>Delete</button>
           </div>
         );
       })}
